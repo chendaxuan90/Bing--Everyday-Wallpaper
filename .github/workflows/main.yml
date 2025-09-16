@@ -1,0 +1,34 @@
+name: Get Bing Wallpaper
+
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:
+    - cron: "30 0 * * *" # 每天 0:30 UTC 运行（可以改时区）
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq curl git
+
+      - name: Run Wallpaper Script
+        run: |
+          chmod +x scripts/get-wallpaper.sh
+          ./scripts/get-wallpaper.sh
+
+      - name: Commit and Push New Wallpaper
+        run: |
+          if [[ -n "$(git status --porcelain wallpapers logs)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add wallpapers logs
+            git commit -m "Add Bing Wallpaper for $(date +'%Y-%m-%d')"
+            git push
+          else
+            echo "No new wallpaper to commit."
+          fi
