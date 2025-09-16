@@ -20,8 +20,8 @@ jobs:
       - name: Run wallpaper script
         id: download
         run: |
-          chmod +x ./script/download_wallpaper.sh
-          ./script/download_wallpaper.sh
+          chmod +x ./scripts/download_wallpaper.sh
+          ./scripts/download_wallpaper.sh
         continue-on-error: true  # 即使失败也继续执行
 
       # 3️⃣ Commit & Push 新壁纸
@@ -43,4 +43,4 @@ jobs:
           MAIL_RECEIVER: ${{ secrets.MAIL_RECEIVER }}
           MAIL_SENDER: ${{ secrets.MAIL_SENDER }}
           ACTION_RESULT: ${{ steps.download.outcome }}  # 获取下载步骤状态
-        run: pwsh ./script/email.ps1
+        run: pwsh ./scripts/email.ps1
