@@ -30,7 +30,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers/
-          git commit -m "Add new Bing wallpaper on $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git add script/log/   # 添加日志文件夹
+          git commit -m "Add new Bing wallpaper and logs on $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git push
         continue-on-error: true
 
