@@ -3,7 +3,14 @@
 # Create date: 2025/04/14
 # This Shell Script is used to download Bing Daily Wallpaper
 
-set -e
+# set -e
+
+# 输出到 GitHub Actions 日志
+echo "============================"
+echo "🚀 Start Bing Wallpaper Download"
+echo "📅 Current Date: $CURRENT_DATE"
+echo "🕒 Current Time: $(date +"%Y-%m-%d %H:%M:%S")"
+echo "============================"
 
 # Define Variables
 BING_URL="https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=ja-JP"
