@@ -5,8 +5,12 @@
 
 # set -e
 
+# 设置时区为日本
+export TZ=Asia/Tokyo
+
 # 输出到 GitHub Actions 日志
 echo "============================"
+echo "===== 壁紙ダウンロードスクリプト開始 ====="
 echo "🚀 Start Bing Wallpaper Download"
 echo "📅 Current Date: $CURRENT_DATE"
 echo "🕒 Current Time: $(date +"%Y-%m-%d %H:%M:%S")"
@@ -28,12 +32,16 @@ RETURN_TEXT=""
 if [[ ! -f "$log_full_path" ]]; then
     touch "$log_full_path"
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] New log file created." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] New log file created."
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next the save folder will be check." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next the save folder will be check."
 else
     log_full_path="$log_dir/new_$log_file"
     : > "$log_full_path"
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] The old Log have exist, new one created." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] The old Log have exist, new one created."
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next the save folder will be check." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next the save folder will be check."
 fi
 
 # Get wallpaper info
@@ -45,11 +53,16 @@ file_full_path="$save_dir/$file_name"
 
 if [[ -f "$file_full_path" ]]; then
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Error] The Wallpaper file have already exist." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Error] The Wallpaper file have already exist."
     RETURN_VALUE=6
 else
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] The Wallpaper for $current_date have not been download." >> "$log_full_path"
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next Download will be start." >> "$log_full_path"
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Start to get bing daily wallpaper. Today is $current_date." >> "$log_full_path"
+
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] The Wallpaper for $current_date have not been download."
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Next Download will be start."
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [Message] Start to get bing daily wallpaper. Today is $current_date."
     curl -s -o "$file_full_path" "$imageUrl"
 
     if [[ ! -f "$file_full_path" ]]; then
@@ -61,10 +74,13 @@ fi
 # Result log
 if [[ $RETURN_VALUE -eq 8 ]]; then
     echo "$RETURN_TEXT" >> "$log_full_path"
+    echo "$RETURN_TEXT"
 elif [[ $RETURN_VALUE -eq 0 ]]; then
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [SUCCESS] Download Finished." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [SUCCESS] Download Finished."
 elif [[ $RETURN_VALUE -eq 6 ]]; then
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [WARN] Today's Wallpaper have already exist." >> "$log_full_path"
+    echo "$(date +'%Y-%m-%d-%H:%M:%S') [WARN] Today's Wallpaper have already exist."
 fi
 
 exit $RETURN_VALUE
