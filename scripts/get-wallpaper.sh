@@ -12,8 +12,8 @@ export TZ=Asia/Tokyo
 echo "============================"
 echo "===== 壁紙ダウンロードスクリプト開始 ====="
 echo "🚀 Start Bing Wallpaper Download"
-echo "📅 Current Date: $CURRENT_DATE"
-echo "🕒 Current Time: $(date +"%Y-%m-%d %H:%M:%S")"
+echo "📅 Current Date: $(date +"%Y-%m-%d“）"
+echo "🕒 Current Time: $(date +"%H:%M:%S")"
 echo "============================"
 
 # Define Variables
@@ -82,5 +82,8 @@ elif [[ $RETURN_VALUE -eq 6 ]]; then
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [WARN] Today's Wallpaper have already exist." >> "$log_full_path"
     echo "$(date +'%Y-%m-%d-%H:%M:%S') [WARN] Today's Wallpaper have already exist."
 fi
+
+echo "🚀 Bing Wallpaper Download　finished"
+echo "===== 壁紙ダウンロードスクリプト終了 ====="
 
 exit $RETURN_VALUE
