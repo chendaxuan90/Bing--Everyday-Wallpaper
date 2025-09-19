@@ -8,14 +8,6 @@
 # 设置时区为日本
 export TZ=Asia/Tokyo
 
-# 输出到 GitHub Actions 日志
-echo "============================"
-echo "===== 壁紙ダウンロードスクリプト開始 ====="
-echo "🚀 Start Bing Wallpaper Download"
-# echo "📅 Current Date: $(date +"%Y-%m-%d“)"
-echo "🕒 Current Time: $(date +"%H:%M:%S")"
-echo "============================"
-
 # Define Variables
 BING_URL="https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=ja-JP"
 current_date=$(date +%Y-%m-%d)
@@ -27,6 +19,14 @@ log_file="Get-wallpaper-$current_date.log"
 log_full_path="$log_dir/$log_file"
 RETURN_VALUE=0
 RETURN_TEXT=""
+
+# 输出到 GitHub Actions 日志
+echo "============================"
+echo "===== 壁紙ダウンロードスクリプト開始 ====="
+echo "🚀 Start Bing Wallpaper Download"
+echo "📅 Current Date: $current_date"
+echo "🕒 Current Time: $(date +"%H:%M:%S")"
+echo "============================"
 
 # Check log file
 if [[ ! -f "$log_full_path" ]]; then
