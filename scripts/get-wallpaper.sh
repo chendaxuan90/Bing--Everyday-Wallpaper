@@ -12,7 +12,7 @@ export TZ=Asia/Tokyo
 echo "============================"
 echo "===== 壁紙ダウンロードスクリプト開始 ====="
 echo "🚀 Start Bing Wallpaper Download"
-echo "📅 Current Date: $(date +"%Y-%m-%d“）"
+echo "📅 Current Date: $(date +"%Y-%m-%d“)"
 echo "🕒 Current Time: $(date +"%H:%M:%S")"
 echo "============================"
 
