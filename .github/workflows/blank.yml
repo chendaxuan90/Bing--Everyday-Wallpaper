@@ -1,6 +1,5 @@
 name: Bing Daily Wallpaper with slack
 
-# 定时触发 + 手动触发
 on:
   workflow_dispatch:
   schedule:
@@ -11,6 +10,10 @@ jobs:
   download-and-notify:
     runs-on: ubuntu-latest
 
+    env:                     # ✅ 在 job 级别设置环境变量
+      SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      TZ: Asia/Tokyo         # 可选：也可以这里设时区
+
     steps:
       # 1️⃣ Checkout 仓库
       - name: Checkout repository
@@ -19,8 +22,6 @@ jobs:
       # 2️⃣ 下载壁纸
       - name: Run wallpaper script
         id: download
-        env:
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         run: |
           chmod +x ./scripts/get-wallpaper-slack.sh
           ./scripts/get-wallpaper-slack.sh
@@ -32,7 +33,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers/
-          git add logs/   # 添加日志文件夹
+          git add logs/
           git commit -m "Add new Bing wallpaper and logs on $(date +'%Y-%m-%d')" || echo "No changes to commit"
           git push
         continue-on-error: true
