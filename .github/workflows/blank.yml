@@ -22,8 +22,8 @@ jobs:
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         run: |
-          chmod +x ./scripts/get-wallpaper.sh
-          ./scripts/get-wallpaper.sh
+          chmod +x ./scripts/get-wallpaper-slack.sh
+          ./scripts/get-wallpaper-slack.sh
         continue-on-error: true  # 即使失败也继续执行
 
       # 3️⃣ Commit & Push 新壁纸
