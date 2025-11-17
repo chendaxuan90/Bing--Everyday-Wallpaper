@@ -14,7 +14,7 @@ export TZ=Asia/Tokyo
 SLACK_API_URL="https://slack.com/api/chat.postMessage"
 SLACK_CHANNEL="C09T9JA4FQW"          # 你的 channel ID
 SLACK_TOKEN=$env:SLACK_TOKEN        # 从环境变量读取 Token（GitHub Actions 里传）
-
+echo “$SLACK_TOKEN”
 send_slack() {
     local text="$1"
 
