@@ -56,7 +56,7 @@ RETURN_TEXT=""
 #######################################
 # 开始时 Slack 通知
 #######################################
-send_slack "🟢 [Bing Wallpaper] スクリプト開始\n📅 日付: $current_date\n🕒 時刻: $current_time"
+send_slack "🟢 [Bing Wallpaper] スクリプト開始 📅 日付: $current_date 🕒 時刻: $current_time"
 
 echo "============================"
 echo "===== 壁紙ダウンロードスクリプト開始 ====="
@@ -127,13 +127,13 @@ echo "===== 壁紙ダウンロードスクリプト終了 ====="
 # 结束时 Slack 通知（按状态区分）
 #######################################
 if [[ $RETURN_VALUE -eq 0 ]]; then
-    send_slack "✅ [Bing Wallpaper] ダウンロード成功\n📅 $current_date\n🖼 ファイル: $file_name"
+    send_slack "✅ [Bing Wallpaper] ダウンロード成功 📅 $current_date 🖼 ファイル: $file_name"
 elif [[ $RETURN_VALUE -eq 6 ]]; then
-    send_slack "⚠️ [Bing Wallpaper] 既に本日の壁紙が存在します\n📅 $current_date\n🖼 ファイル: $file_name"
+    send_slack "⚠️ [Bing Wallpaper] 既に本日の壁紙が存在します 📅 $current_date 🖼 ファイル: $file_name"
 elif [[ $RETURN_VALUE -eq 8 ]]; then
-    send_slack "❌ [Bing Wallpaper] ダウンロード失敗\n📅 $current_date\n詳細: Fail to download bing daily wallpaper."
+    send_slack "❌ [Bing Wallpaper] ダウンロード失敗 📅 $current_date 詳細: Fail to download bing daily wallpaper."
 else
-    send_slack "⚠️ [Bing Wallpaper] 異常終了\n📅 $current_date\nRETURN_VALUE: $RETURN_VALUE"
+    send_slack "⚠️ [Bing Wallpaper] 異常終了 📅 $current_date RETURN_VALUE: $RETURN_VALUE"
 fi
 
 exit $RETURN_VALUE
