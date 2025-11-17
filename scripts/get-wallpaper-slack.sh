@@ -13,22 +13,29 @@ export TZ=Asia/Tokyo
 #######################################
 SLACK_API_URL="https://slack.com/api/chat.postMessage"
 SLACK_CHANNEL="C09T9JA4FQW"          # 你的 channel ID
-SLACK_TOKEN=$env:SLACK_TOKEN         # 从环境变量读取 Token
+SLACK_TOKEN=$env:SLACK_TOKEN        # 从环境变量读取 Token（GitHub Actions 里传）
 
 send_slack() {
     local text="$1"
 
-    # 没有设置 Token 的时候就跳过发送，避免报错
     if [[ -z "$SLACK_TOKEN" ]]; then
         echo "[INFO] SLACK_TOKEN not set, skip Slack notification: $text"
-        return
+        return 0
     fi
 
-    curl -s --location --request POST "$SLACK_API_URL" \
+    echo "[INFO] Sending Slack message: $text"
+
+    # 打印 Slack 返回值，方便在 Actions 日志里确认
+    response=$(
+      curl -sS --location --request POST "$SLACK_API_URL" \
         --header 'Content-Type: application/x-www-form-urlencoded' \
         --header "Authorization: Bearer $SLACK_TOKEN" \
         --data-urlencode "channel=$SLACK_CHANNEL" \
-        --data-urlencode "text=$text" >/dev/null 2>&1
+        --data-urlencode "text=$text" \
+        || echo "curl_error"
+    )
+
+    echo "[INFO] Slack response: $response"
 }
 
 #######################################
@@ -37,8 +44,8 @@ send_slack() {
 BING_URL="https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=ja-JP"
 current_date=$(date +%Y-%m-%d)
 current_time=$(date +"%H:%M:%S")
-save_dir="wallpapers"  # ✅ 仓库内的 wallpapers 文件夹
-log_dir="logs"         # 仓库内的 logs 文件夹
+save_dir="wallpapers"
+log_dir="logs"
 mkdir -p "$save_dir" "$log_dir"
 
 log_file="Get-wallpaper-$current_date.log"
@@ -51,7 +58,6 @@ RETURN_TEXT=""
 #######################################
 send_slack "🟢 [Bing Wallpaper] スクリプト開始\n📅 日付: $current_date\n🕒 時刻: $current_time"
 
-# 输出到 GitHub Actions 日志
 echo "============================"
 echo "===== 壁紙ダウンロードスクリプト開始 ====="
 echo "🚀 Start Bing Wallpaper Download"
